@@ -41,8 +41,17 @@ app.engine("handlebars", exphbs({
 app.set("view engine", "handlebars");
 
 // Database configuration with mongoose
-//mongoose.connect("mongodb://heroku_jmv816f9:5j1nd4taq42hi29bfm5hobeujd@ds133192.mlab.com:33192/heroku_jmv816f9");
-mongoose.connect("mongodb://localhost/brewsnews");
+//mongoose.connect("mongodb://<dbuser>:<dbpassword>@ds143099.mlab.com:43099/heroku_wb5r90nr");
+//mongoose.connect("mongodb://localhost/brewsnews");
+var databaseUri = 'mongodb://<dbuser>:<dbpassword>@ds143099.mlab.com:43099/heroku_wb5r90nr';
+var databaseUri = 'mongodb://localhost/brewsnews';
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI);
+
+} else {
+  mongoose.connect(databaseUri);
+}
+
 var db = mongoose.connection;
 
 // Show any mongoose errors
